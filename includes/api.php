@@ -1,10 +1,9 @@
 <?php
-$api_request_count = 0;
+
 
 function translate_text($texts, $source_lang, $target_lang) {
-    global $api_key, $api_request_count;
-    $api_request_count++;
-    error_log("API Request Sent: " . date('Y-m-d H:i:s'));
+    global $api_key;
+
     $url = "https://api.openai.com/v1/chat/completions";
     $headers = array(
         'Authorization' => 'Bearer ' . $api_key,
