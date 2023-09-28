@@ -1,12 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
     const currentLang = document.getElementById("current-lang");
+    const currentLangWrapper = document.querySelector(".current-lang-wrapper");
     const langDropdown = document.getElementById("lang-dropdown");
     let sourceLang = 'it'; // Default source language
 
     // Toggle dropdown visibility when the current language is clicked
     currentLang.addEventListener("click", function(event) {
         event.stopPropagation();
-        langDropdown.style.display = langDropdown.style.display === "none" || langDropdown.style.display === "" ? "block" : "none";
+        toggleLangDropdown();
     });
 
     // Translate text when a language in the dropdown is clicked
@@ -30,14 +31,24 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    
-
     // Close dropdown if clicked outside of the dropdown area
     document.addEventListener("click", function(event) {
         if (!event.target.closest("#perseo-multilang-gpt")) {
             langDropdown.style.display = "none";
+            currentLangWrapper.classList.remove('multilang-no-radius');
         }
     });
+
+    // Add and remove radius class
+    function toggleLangDropdown() {
+        if (langDropdown.style.display === 'none' || langDropdown.style.display === '') {
+            langDropdown.style.display = 'block';
+            currentLangWrapper.classList.add('multilang-no-radius');
+        } else {
+            langDropdown.style.display = 'none';
+            currentLangWrapper.classList.remove('multilang-no-radius');
+        }
+    }
 
     // Function to translate text
     async function translateTexts(texts, sourceLang, targetLang) {
@@ -61,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 throw new Error(`HTTP error ${response.status}`);
             }
             const data = await response.json();
-            return data.translated_texts; // Assuming the server returns an array with this name
+            return data.translated_texts;
         } catch (error) {
             console.error('Error:', error);
             return texts;
