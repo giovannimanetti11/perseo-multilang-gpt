@@ -4,7 +4,11 @@
  * Description: A custom multilanguage plugin using GPT-3.5 Turbo API.
  * Version: 1.0
  * Author: Giovanni Manetti
+ * Author URI: https://github.com/giovannimanetti11
+ * Plugin URI: https://github.com/giovannimanetti11/perseo-multilang-gpt
  */
+
+
 
 // Include API Key
 include_once('api_key.php');
